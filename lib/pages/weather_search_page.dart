@@ -1,4 +1,5 @@
-import 'package:block_cubit_tutorial/cubit/weather_cubit.dart';
+import 'package:block_cubit_tutorial/bloc/weather_bloc.dart';
+// import 'package:block_cubit_tutorial/cubit/weather_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../data/model/weather.dart';
@@ -19,7 +20,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
         // TODO: Implement with cubit
-        child: BlocConsumer<WeatherCubit, WeatherState>(
+        child: BlocConsumer<WeatherBloc, WeatherState>(
           listener: (context, state) {
             if (state is WeatherError) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -102,7 +103,7 @@ class CityInputField extends StatelessWidget {
   void submitCityName(BuildContext context, String cityName) {
     // TODO: Get weather for the city
     // context.<WeatherCubit>();
-    final weatherCubit = context.read<WeatherCubit>();
-    weatherCubit.getWeather(cityName);
+    final weatherBloc = context.read<WeatherBloc>();
+    weatherBloc.add(GetWeather(cityName));
   }
 }
